@@ -30,7 +30,7 @@ const initialState = {
     ],
     newPositions: [
       'Manager',
-      'Break Room Attendent'
+      'Break Room Attendant'
     ]
   }
 };
