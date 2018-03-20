@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'new-positions',
-  templateUrl: './new-positions.component.html',
+  templateUrl: './new-positions.component.html'
 })
 export class NewPositionsComponent {
 

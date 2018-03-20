@@ -6,7 +6,7 @@ import { AckAllAction } from './../state';
 
 @Component({
   selector: 'notification-manager',
-  templateUrl: './notification-manager.component.html',
+  templateUrl: './notification-manager.component.html'
 })
 export class NotificationManagerComponent {
 

@@ -11,7 +11,7 @@ import { AckEmployeeAction } from './../../employees.state';
 */
 @Component({
   selector: 'employee-list',
-  templateUrl: './employee-list.component.html',
+  templateUrl: './employee-list.component.html'
 })
 export class EmployeeListComponent {
 
