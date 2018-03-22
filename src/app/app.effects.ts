@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { filter, map } from 'rxjs/operators';
 
 import { ACK_ALL, AckAllSuccessAction, AppState, DataReceivedAction } from './state';

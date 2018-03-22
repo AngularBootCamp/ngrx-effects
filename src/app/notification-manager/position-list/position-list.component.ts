@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../state';
-import { ACK_POSITION } from '../../positions.state';
 
 @Component({
   selector: 'position-list',
