@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs/operators';
 
-import { ACK_ALL, AckAllSuccessAction, AppState, DataReceivedAction } from './state';
+import { ACK_ALL, AckAllSuccessAction, DataReceivedAction } from './state';
 
 const initialState = {
   employees: {
@@ -35,7 +34,11 @@ const initialState = {
 
 @Injectable()
 export class AppEffects {
-  constructor(private actions$: Actions, private store: Store<AppState>) {
+  // To use effects we will always need the action stream injected; in
+  // some cases it is also helpful to inject the Store itself, with a
+  // parameter like:
+  // private store: Store<AppState>
+  constructor(private actions$: Actions) {
   }
 
   // ROOT_EFFECTS_INIT is a special action that is dispatched at the end of
