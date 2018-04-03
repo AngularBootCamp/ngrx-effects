@@ -1,6 +1,6 @@
 import { AckPositionAction } from './../../positions.state';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../state';
