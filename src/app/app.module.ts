@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
@@ -24,7 +23,6 @@ import { SharedModule } from './shared-module/shared.module';
   imports: [
     BrowserModule,
     StoreModule.forRoot({ positions: positionReducer, employees: employeeReducer }),
-    HttpClientModule,
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
     SharedModule
