@@ -14,7 +14,9 @@ export class AckAllSuccessAction {
 export const DATA_RECEIVED = 'DATA_RECEIVED';
 export class DataReceivedAction {
   readonly type = DATA_RECEIVED;
-  constructor(public readonly data: AppState) { }
+  // note: readonly in a constructor acts like public, protected, or private
+  // and creates a property on the object (with public visibility)
+  constructor(readonly data: AppState) { }
 }
 
 export interface AppState {

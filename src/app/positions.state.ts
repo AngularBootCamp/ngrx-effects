@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { ACK_ALL_SUCCESS, DATA_RECEIVED, DataReceivedAction } from './state';
 
@@ -43,3 +43,14 @@ function ackPosition(position: string, currentState: PositionState): PositionSta
   const currentPositions = [...currentState.currentPositions, position];
   return { newPositions, currentPositions };
 }
+
+// createSelector will memoize (cache) the result, meaning it will
+// give the same object until the state changes
+const getPositionState =
+  createFeatureSelector<PositionState>('positions');
+
+export const getNewPositions =
+  createSelector(getPositionState, state => state.newPositions);
+
+export const getCurrentPositions =
+  createSelector(getPositionState, state => state.currentPositions);

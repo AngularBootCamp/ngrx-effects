@@ -1,8 +1,8 @@
-import { AckPositionAction } from './../../positions.state';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
+import { AckPositionAction, getCurrentPositions, getNewPositions } from './../../positions.state';
 import { AppState } from '../../state';
 
 @Component({
@@ -14,8 +14,8 @@ export class PositionListComponent {
   newPositions: Observable<string[]>;
 
   constructor(private store: Store<AppState>) {
-    this.curPositions = store.select(state => state.positions.currentPositions);
-    this.newPositions = store.select(state => state.positions.newPositions);
+    this.curPositions = store.select(getCurrentPositions);
+    this.newPositions = store.select(getNewPositions);
   }
 
   ackPos(position: string) {

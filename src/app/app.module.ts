@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
@@ -22,6 +23,7 @@ import { SharedModule } from './shared-module/shared.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     StoreModule.forRoot({ positions: positionReducer, employees: employeeReducer }),
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),

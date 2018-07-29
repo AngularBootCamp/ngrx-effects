@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { AckEmployeeAction, getCurrentEmployees, getNewEmployees } from './../../employees.state';
 import { AppState } from '../../state';
-import { AckEmployeeAction } from './../../employees.state';
 
 /*
   Components now pass and receive information between itself
@@ -19,8 +19,8 @@ export class EmployeeListComponent {
   newEmployees: Observable<string[]>;
 
   constructor(private store: Store<AppState>) {
-    this.curEmployees = store.select(state => state.employees.currentEmployees);
-    this.newEmployees = store.select(state => state.employees.newEmployees);
+    this.curEmployees = store.select(getCurrentEmployees);
+    this.newEmployees = store.select(getNewEmployees);
   }
 
   ackEmp(employee: string) {

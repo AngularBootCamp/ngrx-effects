@@ -1,23 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 import { ACK_ALL, AckAllSuccessAction, DataReceivedAction } from './state';
+import { EmployeeLoader, Employee } from './employee-loader.service';
+import { ModalService } from './modal.service';
 
 const initialState = {
-  employees: {
-    currentEmployees: [
-      'Alice Anderson',
-      'Billy Burton',
-      'Carol Carson',
-      'David Dennison'
-    ],
-    newEmployees: [
-      'Erin Ericcson',
-      'Frank Ferdinand'
-    ]
-  },
   positions: {
     currentPositions: [
       'Copier',
@@ -32,13 +22,20 @@ const initialState = {
   }
 };
 
+function toName(employee: Employee) {
+  return `${employee.first_name} ${employee.last_name}`;
+}
+
 @Injectable()
 export class AppEffects {
   // To use effects we will always need the action stream injected; in
   // some cases it is also helpful to inject the Store itself, with a
   // parameter like:
   // private store: Store<AppState>
-  constructor(private actions$: Actions) {
+  constructor(
+    private actions$: Actions,
+    private loader: EmployeeLoader,
+    private modalSvc: ModalService) {
   }
 
   // ROOT_EFFECTS_INIT is a special action that is dispatched at the end of
@@ -47,7 +44,14 @@ export class AppEffects {
   @Effect()
   init$ = this.actions$
     .ofType(ROOT_EFFECTS_INIT).pipe(
-      map(() => new DataReceivedAction(initialState))
+      switchMap(() => this.loader.getList()),
+      map(employees => new DataReceivedAction({
+        ...initialState,
+        employees: {
+          currentEmployees: employees.slice(0, 4).map(toName),
+          newEmployees: employees.slice(4, 6).map(toName)
+        }
+      }))
     );
 
   // This confirmation step could have been added at dispatch
@@ -58,7 +62,7 @@ export class AppEffects {
   @Effect()
   ackAll$ = this.actions$
     .ofType(ACK_ALL).pipe(
-      filter(() => window.confirm('Are you sure?')),
+      filter(() => this.modalSvc.confirm('Are you sure?')),
       map(() => new AckAllSuccessAction())
     );
 }
