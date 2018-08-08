@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-import { ACK_ALL, AckAllSuccessAction, DataReceivedAction } from './state';
-import { EmployeeLoader, Employee } from './employee-loader.service';
+import { Employee, EmployeeLoader } from './employee-loader.service';
 import { ModalService } from './modal.service';
+import { ACK_ALL, AckAllSuccessAction, DataReceivedAction } from './state';
 
 const initialState = {
   positions: {

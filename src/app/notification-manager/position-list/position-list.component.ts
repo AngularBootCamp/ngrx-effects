@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AckPositionAction, getCurrentPositions, getNewPositions } from './../../positions.state';
+import { AckPositionAction, getCurrentPositions, getNewPositions } from '../../positions.state';
 import { AppState } from '../../state';
 
 @Component({

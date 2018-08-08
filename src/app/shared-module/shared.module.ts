@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { CurrentEmployeesComponent } from './current-employees/current-employees.component';
 import { CurrentPositionsComponent } from './current-positions/current-positions.component';
