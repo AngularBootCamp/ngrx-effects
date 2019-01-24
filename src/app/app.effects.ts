@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { Actions, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
+import { Actions, Effect, ROOT_EFFECTS_INIT, ofType } from '@ngrx/effects';
 import { filter, map, switchMap } from 'rxjs/operators';
 
 import { Employee, EmployeeLoader } from './employee-loader.service';
@@ -43,7 +42,8 @@ export class AppEffects {
   // initialization.
   @Effect()
   init$ = this.actions$
-    .ofType(ROOT_EFFECTS_INIT).pipe(
+    .pipe(
+      ofType(ROOT_EFFECTS_INIT),
       switchMap(() => this.loader.getList()),
       map(employees => new DataReceivedAction({
         ...initialState,
@@ -61,7 +61,8 @@ export class AppEffects {
   // infinite loop.
   @Effect()
   ackAll$ = this.actions$
-    .ofType(ACK_ALL).pipe(
+    .pipe(
+      ofType(ACK_ALL),
       filter(() => this.modalSvc.confirm('Are you sure?')),
       map(() => new AckAllSuccessAction())
     );
