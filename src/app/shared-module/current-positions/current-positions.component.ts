@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CurrentPositionsComponent {
 
-  @Input() positionList: string[];
+  @Input() positionList: string[] = [];
 
 }

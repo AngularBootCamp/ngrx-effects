@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class NewPositionsComponent {
 
-  @Input() newPosList: string[];
+  @Input() newPosList: string[] = [];
   @Output() ackPositions = new EventEmitter<string>();
 
   ack(position: string) {

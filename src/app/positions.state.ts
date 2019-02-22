@@ -1,10 +1,10 @@
 import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { ACK_ALL_SUCCESS, DATA_RECEIVED, DataReceivedAction } from './state';
+import { DataReceivedAction, ackAllSuccess, dataReceived } from './state';
 
-export const ACK_POSITION = 'ACK_POSITION';
+export const ackPosition = 'ACK_POSITION';
 export class AckPositionAction implements Action {
-  type = ACK_POSITION;
+  type = ackPosition;
   constructor(public payload: string) { }
 }
 
@@ -23,14 +23,14 @@ export function positionReducer(
   action: Action): PositionState {
 
   switch (action.type) {
-    case ACK_POSITION:
-      return ackPosition((action as AckPositionAction).payload, state);
-    case ACK_ALL_SUCCESS:
+    case ackPosition:
+      return acknowledgePosition((action as AckPositionAction).payload, state);
+    case ackAllSuccess:
       return {
         currentPositions: [...state.currentPositions, ...state.newPositions],
         newPositions: []
       };
-    case DATA_RECEIVED:
+    case dataReceived:
       const a = (action as DataReceivedAction);
       return a.data.positions;
     default:
@@ -38,7 +38,7 @@ export function positionReducer(
   }
 }
 
-function ackPosition(position: string, currentState: PositionState): PositionState {
+function acknowledgePosition(position: string, currentState: PositionState): PositionState {
   const newPositions = currentState.newPositions.filter(x => x !== position);
   const currentPositions = [...currentState.currentPositions, position];
   return { newPositions, currentPositions };

@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class NewEmployeesComponent {
 
-  @Input() newEmpList: string[];
+  @Input() newEmpList: string[] = [];
   @Output() ackEmployee = new EventEmitter<string>();
 
   ack(employee: string) {

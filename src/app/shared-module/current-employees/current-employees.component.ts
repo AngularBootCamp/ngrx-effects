@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CurrentEmployeesComponent {
 
-  @Input() employeeList: string[];
+  @Input() employeeList: string[] = [];
 
 }

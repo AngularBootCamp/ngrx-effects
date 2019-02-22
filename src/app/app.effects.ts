@@ -4,7 +4,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 import { Employee, EmployeeLoader } from './employee-loader.service';
 import { ModalService } from './modal.service';
-import { ACK_ALL, AckAllSuccessAction, DataReceivedAction } from './state';
+import { AckAllSuccessAction, DataReceivedAction, ackAll } from './state';
 
 const initialState = {
   positions: {
@@ -62,7 +62,7 @@ export class AppEffects {
   @Effect()
   ackAll$ = this.actions$
     .pipe(
-      ofType(ACK_ALL),
+      ofType(ackAll),
       filter(() => this.modalSvc.confirm('Are you sure?')),
       map(() => new AckAllSuccessAction())
     );
