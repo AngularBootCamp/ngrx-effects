@@ -17,6 +17,5 @@ const components = [
   imports: [CommonModule],
   declarations: components,
   exports: components
-
 })
 export class SharedModule {}

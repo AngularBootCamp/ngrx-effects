@@ -24,11 +24,14 @@ import { SharedModule } from './shared-module/shared.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({ positions: positionReducer, employees: employeeReducer }),
+    StoreModule.forRoot({
+      positions: positionReducer,
+      employees: employeeReducer
+    }),
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
     SharedModule
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

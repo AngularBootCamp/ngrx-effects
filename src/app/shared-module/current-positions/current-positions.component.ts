@@ -5,7 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './current-positions.component.html'
 })
 export class CurrentPositionsComponent {
-
   @Input() positionList: string[] = [];
-
 }

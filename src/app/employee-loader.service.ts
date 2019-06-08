@@ -17,7 +17,7 @@ const apiUrl = 'https://api.angularbootcamp.com';
   providedIn: 'root'
 })
 export class EmployeeLoader {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getList(): Observable<Employee[]> {
     return this.http.get<Employee[]>(apiUrl + '/employees');

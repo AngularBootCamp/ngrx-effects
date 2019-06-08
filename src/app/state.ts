@@ -16,7 +16,7 @@ export class DataReceivedAction {
   readonly type = dataReceived;
   // note: readonly in a constructor acts like public, protected, or private
   // and creates a property on the object (with public visibility)
-  constructor(readonly data: AppState) { }
+  constructor(readonly data: AppState) {}
 }
 
 export interface AppState {

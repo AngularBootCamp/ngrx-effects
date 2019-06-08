@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AckEmployeeAction, getCurrentEmployees, getNewEmployees } from '../../employees.state';
+import {
+  AckEmployeeAction,
+  getCurrentEmployees,
+  getNewEmployees
+} from '../../employees.state';
 import { AppState } from '../../state';
 
 @Component({
@@ -10,7 +14,6 @@ import { AppState } from '../../state';
   templateUrl: './employee-list.component.html'
 })
 export class EmployeeListComponent {
-
   curEmployees: Observable<string[]>;
   newEmployees: Observable<string[]>;
 
