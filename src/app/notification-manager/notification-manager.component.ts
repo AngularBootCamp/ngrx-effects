@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AckAllAction, AppState } from '../state';
+import { AppState, ackAll } from '../state';
 
 @Component({
   selector: 'notification-manager',
@@ -11,6 +11,6 @@ export class NotificationManagerComponent {
   constructor(private store: Store<AppState>) {}
 
   ackAll() {
-    this.store.dispatch(new AckAllAction());
+    this.store.dispatch(ackAll());
   }
 }

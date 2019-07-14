@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import {
-  AckPositionAction,
+  ackPosition,
   getCurrentPositions,
   getNewPositions
 } from '../../positions.state';
@@ -23,6 +23,6 @@ export class PositionListComponent {
   }
 
   ackPos(position: string) {
-    this.store.dispatch(new AckPositionAction(position));
+    this.store.dispatch(ackPosition({ position }));
   }
 }

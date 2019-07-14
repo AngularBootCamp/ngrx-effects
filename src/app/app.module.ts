@@ -7,11 +7,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
-import { employeeReducer } from './employees.state';
+import { EmployeesEffects } from './employees.effects';
 import { EmployeeListComponent } from './notification-manager/employee-list/employee-list.component';
 import { NotificationManagerComponent } from './notification-manager/notification-manager.component';
 import { PositionListComponent } from './notification-manager/position-list/position-list.component';
-import { positionReducer } from './positions.state';
+import { PositionsEffects } from './positions.effects';
+import { ROOT_REDUCERS } from './reducers';
 import { SharedModule } from './shared-module/shared.module';
 
 @NgModule({
@@ -24,11 +25,19 @@ import { SharedModule } from './shared-module/shared.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      positions: positionReducer,
-      employees: employeeReducer
+    StoreModule.forRoot(ROOT_REDUCERS, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictStateSerializability: true,
+        strictActionImmutability: true,
+        strictActionSerializability: true
+      }
     }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([
+      AppEffects,
+      EmployeesEffects,
+      PositionsEffects
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
     SharedModule
   ],

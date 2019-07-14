@@ -1,20 +1,23 @@
 import {
-  Action,
+  createAction,
   createFeatureSelector,
-  createSelector
+  createReducer,
+  createSelector,
+  on,
+  props
 } from '@ngrx/store';
 
-import {
-  DataReceivedAction,
-  ackAllSuccess,
-  dataReceived
-} from './state';
+import { AppState, ackAllSuccess } from './state';
 
-export const ackEmployee = 'ACK_EMPLOYEE';
-export class AckEmployeeAction implements Action {
-  readonly type = ackEmployee;
-  constructor(readonly payload: string) {}
-}
+export const ackEmployee = createAction(
+  'ACK_EMPLOYEE',
+  props<{ employee: string }>()
+);
+
+export const employeesReceived = createAction(
+  'EMPLOYEES_RECEIVED',
+  props<{ employees: EmployeeState }>()
+);
 
 export interface EmployeeState {
   newEmployees: string[];
@@ -26,31 +29,22 @@ const defaultEmployeeState: EmployeeState = {
   currentEmployees: []
 };
 
-export function employeeReducer(
-  state: EmployeeState = defaultEmployeeState,
-  action: Action
-): EmployeeState {
-  switch (action.type) {
-    case ackEmployee:
-      return acknowledgeEmployee(
-        state,
-        (action as AckEmployeeAction).payload
-      );
-    case ackAllSuccess:
-      return {
-        currentEmployees: [
-          ...state.currentEmployees,
-          ...state.newEmployees
-        ],
-        newEmployees: []
-      };
-    case dataReceived:
-      const a = action as DataReceivedAction;
-      return a.data.employees;
-    default:
-      return state;
-  }
-}
+export const employeeReducer = createReducer(
+  defaultEmployeeState,
+  on(ackEmployee, (state, action) =>
+    acknowledgeEmployee(state, action.employee)
+  ),
+  on(ackAllSuccess, state => {
+    return {
+      currentEmployees: [
+        ...state.currentEmployees,
+        ...state.newEmployees
+      ],
+      newEmployees: []
+    };
+  }),
+  on(employeesReceived, (_state, action) => action.employees)
+);
 
 function acknowledgeEmployee(
   currentState: EmployeeState,
@@ -69,9 +63,10 @@ function acknowledgeEmployee(
 // defensive copy of the data coming out of the store
 // createSelector will memoize (cache) the result, meaning it will
 // give the same object until the state changes
-const getEmployeeState = createFeatureSelector<EmployeeState>(
-  'employees'
-);
+const getEmployeeState = createFeatureSelector<
+  AppState,
+  EmployeeState
+>('employees');
 
 export const getNewEmployees = createSelector(
   getEmployeeState,
