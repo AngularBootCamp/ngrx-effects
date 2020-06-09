@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-export interface Employee {
+export interface WorkTask {
   id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  hours_worked: number;
-  hourly_wage: number;
+  title: string;
+  description: string;
+  responsible_party: string;
+  estimated_time: number;
+  priority: number;
 }
 
 const apiUrl = 'https://api.angularbootcamp.com';
@@ -16,10 +16,10 @@ const apiUrl = 'https://api.angularbootcamp.com';
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeLoader {
+export class WorkTaskLoader {
   constructor(private http: HttpClient) {}
 
-  getList(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(apiUrl + '/employees');
+  getList(): Observable<WorkTask[]> {
+    return this.http.get<WorkTask[]>(apiUrl + '/worktasks');
   }
 }

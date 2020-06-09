@@ -9,20 +9,20 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
-import { EmployeesEffects } from './employees.effects';
-import { EmployeeListComponent } from './notification-manager/employee-list/employee-list.component';
+import { HomeTasksEffects } from './home-tasks.effects';
+import { HomeTaskListComponent } from './notification-manager/home-task-list/home-task-list.component';
 import { NotificationManagerComponent } from './notification-manager/notification-manager.component';
-import { PositionListComponent } from './notification-manager/position-list/position-list.component';
-import { PositionsEffects } from './positions.effects';
+import { WorkTaskListComponent } from './notification-manager/work-task-list/work-task-list.component';
 import { reducers } from './reducers';
-import { SharedModule } from './shared-module/shared.module';
+import { TodoListModule } from './todo-list/todo-list.module';
+import { WorkTasksEffects } from './work-tasks.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotificationManagerComponent,
-    EmployeeListComponent,
-    PositionListComponent
+    WorkTaskListComponent,
+    HomeTaskListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,13 +35,13 @@ import { SharedModule } from './shared-module/shared.module';
     }),
     EffectsModule.forRoot([
       AppEffects,
-      EmployeesEffects,
-      PositionsEffects
+      WorkTasksEffects,
+      HomeTasksEffects
     ]),
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 50 })
       : [],
-    SharedModule
+    TodoListModule
   ],
   bootstrap: [AppComponent]
 })

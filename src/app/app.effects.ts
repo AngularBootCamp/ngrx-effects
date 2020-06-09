@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { filter, map } from 'rxjs/operators';
 
 import { ModalService } from './modal.service';
-import { ackAll, ackAllSuccess } from './state';
+import { completeAll, completeAllSuccess } from './state';
 
 @Injectable()
 export class AppEffects {
@@ -21,11 +21,11 @@ export class AppEffects {
   // in the component as possible. Note that the output is a
   // different type of action; this is necessary to avoid an
   // infinite loop.
-  ackAll$ = createEffect(() =>
+  completeAll$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ackAll),
+      ofType(completeAll),
       filter(() => this.modalSvc.confirm('Are you sure?')),
-      map(() => ackAllSuccess())
+      map(() => completeAllSuccess())
     )
   );
 }
