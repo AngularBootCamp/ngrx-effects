@@ -6,8 +6,8 @@ export interface WorkTask {
   id: number;
   title: string;
   description: string;
-  responsible_party: string;
-  estimated_time: number;
+  responsibleParty: string;
+  estimatedTime: number;
   priority: number;
 }
 
