@@ -20,9 +20,9 @@ import { WorkTasksEffects } from './work-tasks.effects';
 @NgModule({
   declarations: [
     AppComponent,
+    HomeTaskListComponent,
     NotificationManagerComponent,
-    WorkTaskListComponent,
-    HomeTaskListComponent
+    WorkTaskListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +35,8 @@ import { WorkTasksEffects } from './work-tasks.effects';
     }),
     EffectsModule.forRoot([
       AppEffects,
-      WorkTasksEffects,
-      HomeTasksEffects
+      HomeTasksEffects,
+      WorkTasksEffects
     ]),
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 50 })

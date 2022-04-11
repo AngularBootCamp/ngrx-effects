@@ -10,7 +10,7 @@ export class AppEffects {
   // To use effects we will always need the action stream injected; in
   // some cases it is also helpful to inject the Store itself, with a
   // parameter like:
-  // private store: Store<AppState>
+  // private store: Store
   constructor(
     private actions$: Actions,
     private modalSvc: ModalService

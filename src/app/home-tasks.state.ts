@@ -7,7 +7,7 @@ import {
   props
 } from '@ngrx/store';
 
-import { AppState, completeAllSuccess } from './state';
+import { completeAllSuccess } from './state';
 
 export const setHomeTask = createAction(
   'SET_HOME_TASK',
@@ -34,12 +34,10 @@ export const homeTaskReducer = createReducer(
   on(setHomeTask, (state, action) =>
     setHomeTaskStatus(state, action.task, action.complete)
   ),
-  on(completeAllSuccess, state => {
-    return {
-      doneHome: [...state.doneHome, ...state.todoHome],
-      todoHome: []
-    };
-  }),
+  on(completeAllSuccess, state => ({
+    doneHome: [...state.doneHome, ...state.todoHome],
+    todoHome: []
+  })),
   on(homeTasksReceived, (_state, action) => action.tasks)
 );
 
@@ -60,10 +58,8 @@ function setHomeTaskStatus(
 
 // createSelector will memorize (cache) the result, meaning it will
 // give the same object until the state changes
-const getHomeTaskState = createFeatureSelector<
-  AppState,
-  HomeTaskState
->('hometasks');
+const getHomeTaskState =
+  createFeatureSelector<HomeTaskState>('hometasks');
 
 export const getTodoHome = createSelector(
   getHomeTaskState,
