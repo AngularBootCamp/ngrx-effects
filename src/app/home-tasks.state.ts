@@ -1,5 +1,5 @@
 import {
-  createAction,
+  createActionGroup,
   createFeatureSelector,
   createReducer,
   createSelector,
@@ -7,17 +7,15 @@ import {
   props
 } from '@ngrx/store';
 
-import { completeAllSuccess } from './state';
+import { generalActions } from './state';
 
-export const setHomeTask = createAction(
-  'SET_HOME_TASK',
-  props<{ task: string; complete: boolean }>()
-);
-
-export const homeTasksReceived = createAction(
-  'HOME_TASKS_RECEIVED',
-  props<{ tasks: HomeTaskState }>()
-);
+export const homeTaskActions = createActionGroup({
+  source: 'Home Tasks',
+  events: {
+    'Set Home Task': props<{ task: string; complete: boolean }>(),
+    'Home Tasks Received': props<{ tasks: HomeTaskState }>()
+  }
+});
 
 const defaultHomeTaskState: HomeTaskState = {
   todoHome: [],
@@ -31,14 +29,17 @@ export interface HomeTaskState {
 
 export const homeTaskReducer = createReducer(
   defaultHomeTaskState,
-  on(setHomeTask, (state, action) =>
+  on(homeTaskActions.setHomeTask, (state, action) =>
     setHomeTaskStatus(state, action.task, action.complete)
   ),
-  on(completeAllSuccess, state => ({
+  on(generalActions.completeAllSuccess, state => ({
     doneHome: [...state.doneHome, ...state.todoHome],
     todoHome: []
   })),
-  on(homeTasksReceived, (_state, action) => action.tasks)
+  on(
+    homeTaskActions.homeTasksReceived,
+    (_state, action) => action.tasks
+  )
 );
 
 function setHomeTaskStatus(
@@ -56,17 +57,17 @@ function setHomeTaskStatus(
   return { todoHome, doneHome };
 }
 
-// createSelector will memorize (cache) the result, meaning it will
+// createSelector will memoize (cache) the result, meaning it will
 // give the same object until the state changes
-const getHomeTaskState =
-  createFeatureSelector<HomeTaskState>('hometasks');
+const selectHomeTaskState =
+  createFeatureSelector<HomeTaskState>('homeTasks');
 
-export const getTodoHome = createSelector(
-  getHomeTaskState,
+export const selectTodoHome = createSelector(
+  selectHomeTaskState,
   state => state.todoHome
 );
 
-export const getDoneHome = createSelector(
-  getHomeTaskState,
+export const selectDoneHome = createSelector(
+  selectHomeTaskState,
   state => state.doneHome
 );

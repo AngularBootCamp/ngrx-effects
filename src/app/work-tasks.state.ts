@@ -1,5 +1,5 @@
 import {
-  createAction,
+  createActionGroup,
   createFeatureSelector,
   createReducer,
   createSelector,
@@ -7,17 +7,15 @@ import {
   props
 } from '@ngrx/store';
 
-import { completeAllSuccess } from './state';
+import { generalActions } from './state';
 
-export const setWorkTask = createAction(
-  'SET_WORK_TASK',
-  props<{ task: string; complete: boolean }>()
-);
-
-export const workTasksReceived = createAction(
-  'WORK_TASKS_RECEIVED',
-  props<{ tasks: WorkTaskState }>()
-);
+export const workTaskActions = createActionGroup({
+  source: 'Work Tasks',
+  events: {
+    'Set Work Task': props<{ task: string; complete: boolean }>(),
+    'Work Tasks Received': props<{ tasks: WorkTaskState }>()
+  }
+});
 
 export interface WorkTaskState {
   todoWork: string[];
@@ -31,14 +29,17 @@ const defaultWorkTaskState: WorkTaskState = {
 
 export const workTaskReducer = createReducer(
   defaultWorkTaskState,
-  on(setWorkTask, (state, action) =>
+  on(workTaskActions.setWorkTask, (state, action) =>
     setWorkTaskStatus(state, action.task, action.complete)
   ),
-  on(completeAllSuccess, state => ({
+  on(generalActions.completeAllSuccess, state => ({
     doneWork: [...state.doneWork, ...state.todoWork],
     todoWork: []
   })),
-  on(workTasksReceived, (_state, action) => action.tasks)
+  on(
+    workTaskActions.workTasksReceived,
+    (_state, action) => action.tasks
+  )
 );
 
 function setWorkTaskStatus(
@@ -59,13 +60,15 @@ function setWorkTaskStatus(
 // defensive copy of the data coming out of the store
 // createSelector will memoize (cache) the result, meaning it will
 // give the same object until the state changes
-const getWorkTaskState =
-  createFeatureSelector<WorkTaskState>('worktasks');
+const selectWorkTaskState =
+  createFeatureSelector<WorkTaskState>('workTasks');
 
-export const getTodoWork = createSelector(getWorkTaskState, state => [
-  ...state.todoWork
-]);
+export const selectTodoWork = createSelector(
+  selectWorkTaskState,
+  state => [...state.todoWork]
+);
 
-export const getDoneWork = createSelector(getWorkTaskState, state => [
-  ...state.doneWork
-]);
+export const selectDoneWork = createSelector(
+  selectWorkTaskState,
+  state => [...state.doneWork]
+);

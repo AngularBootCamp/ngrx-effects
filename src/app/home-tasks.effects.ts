@@ -1,7 +1,7 @@
 import { OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 
-import { HomeTaskState, homeTasksReceived } from './home-tasks.state';
+import { HomeTaskState, homeTaskActions } from './home-tasks.state';
 
 const initialHomeTasks: HomeTaskState = {
   doneHome: [
@@ -15,6 +15,8 @@ const initialHomeTasks: HomeTaskState = {
 
 export class HomeTasksEffects implements OnInitEffects {
   ngrxOnInitEffects(): Action {
-    return homeTasksReceived({ tasks: initialHomeTasks });
+    return homeTaskActions.homeTasksReceived({
+      tasks: initialHomeTasks
+    });
   }
 }

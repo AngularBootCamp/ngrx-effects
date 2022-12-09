@@ -38,9 +38,10 @@ import { WorkTasksEffects } from './work-tasks.effects';
       HomeTasksEffects,
       WorkTasksEffects
     ]),
-    !environment.production
-      ? StoreDevtoolsModule.instrument({ maxAge: 50 })
-      : [],
+    StoreDevtoolsModule.instrument({
+      maxAge: 50,
+      logOnly: environment.production
+    }),
     TodoListModule
   ],
   bootstrap: [AppComponent]

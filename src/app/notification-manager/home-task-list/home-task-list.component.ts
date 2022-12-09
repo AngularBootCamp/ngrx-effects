@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import {
-  getDoneHome,
-  getTodoHome,
-  setHomeTask
+  selectDoneHome,
+  selectTodoHome,
+  homeTaskActions
 } from '../../home-tasks.state';
 
 @Component({
@@ -20,11 +20,13 @@ export class HomeTaskListComponent {
   outline = 'check_box_outline_blank';
 
   constructor(private store: Store) {
-    this.done = store.select(getDoneHome);
-    this.todo = store.select(getTodoHome);
+    this.done = store.select(selectDoneHome);
+    this.todo = store.select(selectTodoHome);
   }
 
   homeTask(task: string, complete: boolean) {
-    this.store.dispatch(setHomeTask({ task, complete }));
+    this.store.dispatch(
+      homeTaskActions.setHomeTask({ task, complete })
+    );
   }
 }

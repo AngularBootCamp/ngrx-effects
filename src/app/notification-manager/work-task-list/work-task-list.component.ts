@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import {
-  getDoneWork,
-  getTodoWork,
-  setWorkTask
+  selectDoneWork,
+  selectTodoWork,
+  workTaskActions
 } from '../../work-tasks.state';
 
 @Component({
@@ -20,11 +20,13 @@ export class WorkTaskListComponent {
   outline = 'check_box_outline_blank';
 
   constructor(private store: Store) {
-    this.done = store.select(getDoneWork);
-    this.todo = store.select(getTodoWork);
+    this.done = store.select(selectDoneWork);
+    this.todo = store.select(selectTodoWork);
   }
 
   workTask(task: string, complete: boolean) {
-    this.store.dispatch(setWorkTask({ task, complete }));
+    this.store.dispatch(
+      workTaskActions.setWorkTask({ task, complete })
+    );
   }
 }

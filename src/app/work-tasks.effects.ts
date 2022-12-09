@@ -8,7 +8,7 @@ import {
 import { map, switchMap } from 'rxjs/operators';
 
 import { WorkTask, WorkTaskLoader } from './work-task-loader.service';
-import { workTasksReceived } from './work-tasks.state';
+import { workTaskActions } from './work-tasks.state';
 
 function toTask(task: WorkTask) {
   return `${task.title}`;
@@ -29,7 +29,7 @@ export class WorkTasksEffects {
       ofType(ROOT_EFFECTS_INIT),
       switchMap(() => this.loader.getList()),
       map(tasks =>
-        workTasksReceived({
+        workTaskActions.workTasksReceived({
           tasks: {
             doneWork: tasks.slice(0, 4).map(toTask),
             todoWork: tasks.slice(4, 6).map(toTask)

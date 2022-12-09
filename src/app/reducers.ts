@@ -5,6 +5,6 @@ import { AppState } from './state';
 import { workTaskReducer } from './work-tasks.state';
 
 export const reducers: ActionReducerMap<AppState> = {
-  worktasks: workTaskReducer,
-  hometasks: homeTaskReducer
+  workTasks: workTaskReducer,
+  homeTasks: homeTaskReducer
 };
