@@ -5,7 +5,7 @@ import {
   createEffect,
   ofType
 } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs';
 
 import { WorkTask, WorkTaskLoader } from './work-task-loader.service';
 import { workTaskActions } from './work-tasks.state';

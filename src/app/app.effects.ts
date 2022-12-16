@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map } from 'rxjs/operators';
+import { filter, map } from 'rxjs';
 
 import { ModalService } from './modal.service';
 import { generalActions } from './state';
