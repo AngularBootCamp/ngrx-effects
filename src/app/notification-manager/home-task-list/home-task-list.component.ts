@@ -9,7 +9,7 @@ import {
 } from '../../home-tasks.state';
 
 @Component({
-  selector: 'home-task-list',
+  selector: 'app-home-task-list',
   templateUrl: './home-task-list.component.html'
 })
 export class HomeTaskListComponent {

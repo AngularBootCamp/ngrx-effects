@@ -9,7 +9,7 @@ import {
 } from '../../work-tasks.state';
 
 @Component({
-  selector: 'work-task-list',
+  selector: 'app-work-task-list',
   templateUrl: './work-task-list.component.html'
 })
 export class WorkTaskListComponent {

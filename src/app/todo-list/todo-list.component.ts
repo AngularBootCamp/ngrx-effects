@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'todo-list',
+  selector: 'app-todo-list',
   templateUrl: './todo-list.component.html'
 })
 export class TodoListComponent {

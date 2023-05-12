@@ -1,9 +1,5 @@
 <ul class="collection">
-  <li
-    class="collection-item"
-    (click)="setStat(task)"
-    *ngFor="let task of list"
-  >
+  <li (click)="setStat(task)" *ngFor="let task of list">
     <i class="material-icons">{{ icon }}</i>
     {{ task }}
   </li>
