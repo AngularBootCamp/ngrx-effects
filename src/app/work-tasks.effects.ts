@@ -1,41 +1,65 @@
 import { Injectable } from '@angular/core';
 import {
   Actions,
-  ROOT_EFFECTS_INIT,
   createEffect,
-  ofType
+  ofType,
+  OnInitEffects
 } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs';
+import { Action } from '@ngrx/store';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 import { WorkTask, WorkTaskLoader } from './work-task-loader.service';
 import { workTaskActions } from './work-tasks.state';
 
 function toTask(task: WorkTask) {
-  return `${task.title}`;
+  return task.title;
 }
 
 @Injectable()
-export class WorkTasksEffects {
+export class WorkTasksEffects implements OnInitEffects {
   constructor(
     private actions$: Actions,
     private loader: WorkTaskLoader
   ) {}
 
-  // ROOT_EFFECTS_INIT is a special action that is dispatched at the end of
-  // NgRx's initialization process, so this effect executes at application
-  // initialization.
-  init$ = createEffect(() =>
+  loadWorkTasks$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ROOT_EFFECTS_INIT),
-      switchMap(() => this.loader.getList()),
-      map(tasks =>
-        workTaskActions.workTasksReceived({
-          tasks: {
-            doneWork: tasks.slice(0, 4).map(toTask),
-            todoWork: tasks.slice(4, 6).map(toTask)
-          }
-        })
+      ofType(workTaskActions.loadWorkTasks),
+      switchMap(() =>
+        this.loader.getList().pipe(
+          map(tasks =>
+            workTaskActions.loadWorkTasksSuccess({
+              tasks: {
+                doneWork: tasks.slice(0, 4).map(toTask),
+                todoWork: tasks.slice(4, 6).map(toTask)
+              }
+            })
+          ),
+          catchError(error =>
+            of(workTaskActions.loadWorkTasksFailure({ error }))
+          )
+        )
       )
     )
   );
+
+  handleError = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(workTaskActions.loadWorkTasksFailure),
+        tap(error => {
+          console.error('Could not load work tasks', error);
+          window.alert('Could not load work tasks');
+        })
+      );
+    },
+    // since this effect doesn't dispatch a further action, we tell
+    // NgRx not to re-dispatch the failure, which would otherwise
+    // cause an infinite loop.
+    { dispatch: false }
+  );
+
+  ngrxOnInitEffects(): Action {
+    return workTaskActions.loadWorkTasks();
+  }
 }

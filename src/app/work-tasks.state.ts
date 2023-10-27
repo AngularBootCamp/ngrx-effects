@@ -3,6 +3,7 @@ import {
   createFeatureSelector,
   createReducer,
   createSelector,
+  emptyProps,
   on,
   props
 } from '@ngrx/store';
@@ -13,7 +14,9 @@ export const workTaskActions = createActionGroup({
   source: 'Work Tasks',
   events: {
     'Set Work Task': props<{ task: string; complete: boolean }>(),
-    'Work Tasks Received': props<{ tasks: WorkTaskState }>()
+    'Load Work Tasks': emptyProps(),
+    'Load Work Tasks Success': props<{ tasks: WorkTaskState }>(),
+    'Load Work Tasks Failure': props<{ error: unknown }>()
   }
 });
 
@@ -37,7 +40,7 @@ export const workTaskReducer = createReducer(
     todoWork: []
   })),
   on(
-    workTaskActions.workTasksReceived,
+    workTaskActions.loadWorkTasksSuccess,
     (_state, action) => action.tasks
   )
 );
