@@ -1,7 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { TodoListComponent } from '../../todo-list/todo-list.component';
 import {
   selectDoneWork,
   selectTodoWork,
@@ -10,7 +12,9 @@ import {
 
 @Component({
   selector: 'app-work-task-list',
-  templateUrl: './work-task-list.component.html'
+  templateUrl: './work-task-list.component.html',
+  standalone: true,
+  imports: [TodoListComponent, AsyncPipe]
 })
 export class WorkTaskListComponent {
   done: Observable<string[]>;

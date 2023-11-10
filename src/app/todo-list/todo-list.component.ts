@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -7,7 +8,9 @@ import {
 
 @Component({
   selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html'
+  templateUrl: './todo-list.component.html',
+  standalone: true,
+  imports: [NgFor]
 })
 export class TodoListComponent {
   @Input() list: string[] = [];
