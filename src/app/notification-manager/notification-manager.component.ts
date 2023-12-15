@@ -9,7 +9,7 @@ import { WorkTaskListComponent } from './work-task-list/work-task-list.component
 @Component({
   selector: 'app-notification-manager',
   templateUrl: './notification-manager.component.html',
-  styleUrls: ['./notification-manager.component.scss'],
+  styleUrl: './notification-manager.component.scss',
   standalone: true,
   imports: [WorkTaskListComponent, HomeTaskListComponent]
 })

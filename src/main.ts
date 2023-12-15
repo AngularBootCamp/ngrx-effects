@@ -25,7 +25,8 @@ bootstrapApplication(AppComponent, {
     provideEffects([AppEffects, HomeTasksEffects, WorkTasksEffects]),
     provideStoreDevtools({
       maxAge: 50,
-      logOnly: environment.production
+      logOnly: environment.production,
+      trace: true
     }),
     provideHttpClient()
   ]

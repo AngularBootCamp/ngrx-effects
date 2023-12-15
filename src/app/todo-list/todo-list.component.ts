@@ -13,8 +13,8 @@ import {
   imports: [NgFor]
 })
 export class TodoListComponent {
-  @Input() list: string[] = [];
-  @Input() icon = '';
+  @Input({ required: true }) list!: string[];
+  @Input({ required: true }) icon!: string;
 
   @Output() setTaskStatus = new EventEmitter<string>();
 
